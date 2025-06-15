@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="js-container"></div>
+
+
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+
+        function App() {
+            return (
+                <>
+                    <ProductDetails 
+                    item="Cotton socks" 
+                    price="10.99" 
+                    discountPrice="5.99" 
+                    image="cotton-socks.png" 
+                    rating={4} />
+
+                    <ProductDetails 
+                    item="tennis-balls"
+                    price="8.00" 
+                    discountPrice="" 
+                    image="tennis-balls.png" 
+                    rating={3.5} />
+
+                    <ProductDetails 
+                    item="Plain t-shirt" 
+                    price="7.99" 
+                    discountPrice="4.50" 
+                    image="plain-t-shirt.png" 
+                    rating={2} />
+                </>
+            );
+        }
+
+        function ProductDetails({ item, price, discountPrice, image ,rating}) {
+            return (
+                <div>
+                    <img src={image} width="50" />
+
+                    <p>{item}</p>
+                    
+                    <Rating rating={rating} />
+
+                    {discountPrice ?
+                        (
+                            <>
+                                <p><del>Price:${price}</del></p>
+                                <p>Discount Price:${discountPrice}</p>
+                            </>
+
+                        )
+                        :
+                        (
+                            <p>Price:${price}</p>
+                        )
+                    }
+
+                    <button>Add to cart</button>
+                </div>
+            );
+        }
+
+       function Rating({ rating }) {
+      const fullStars = Math.floor(rating);
+      const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+      const emptyStars = 5 - fullStars - halfStar;
+
+      const stars =
+        "★".repeat(fullStars) +
+        (halfStar ? "⯪" : "") +
+        "☆".repeat(emptyStars);
+
+      return <p>Rating: {stars}</p>;
+    }
+
+
+        const container = document.querySelector('.js-container');
+        ReactDOM.createRoot(container).render(<App />);
+    </script>
+</body>
+
+</html>
